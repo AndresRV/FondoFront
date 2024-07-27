@@ -5,6 +5,9 @@ import { CommonModule } from '@angular/common';
 
 import { ImportPrimeModuleModule } from './import-prime-module/import-prime-module.module'
 import { SpinnerModalComponent } from './spinner-modal/spinner-modal.component';
+import { ClientInfoComponent } from './client-info/client-info.component';
+import { FundComponent } from './fund/fund.component';
+import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
 
 import { ClientPortfolio } from './models/interfaces/client-portfolio';
 
@@ -16,7 +19,10 @@ import { ClientPortfolio } from './models/interfaces/client-portfolio';
     ImportPrimeModuleModule,
     SpinnerModalComponent,
     FormsModule,
-    CommonModule
+    CommonModule,
+    ClientInfoComponent,
+    FundComponent,
+    TransactionHistoryComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -25,7 +31,9 @@ import { ClientPortfolio } from './models/interfaces/client-portfolio';
 export class AppComponent {
   clientPortfolio: ClientPortfolio = {
     client: {},
-    transactionHistory: []
+    transactionHistory: [],
+    fundsAvailable: [],
+    registeredFunds: []
   };
 
   ngOnInit(): void {

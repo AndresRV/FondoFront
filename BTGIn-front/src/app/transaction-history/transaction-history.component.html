@@ -1,0 +1,20 @@
+<div class="card">
+    <p-table [value]="transactionHistory">
+        <ng-template pTemplate="header">
+        <tr>
+            <th>Tipo</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+            <th>Aceptada</th>
+        </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-transaction>
+        <tr>
+            <td>{{ transaction.type }}</td>
+            <td>{{ transaction.amount }}</td>
+            <td>{{ transaction.date | date:'short' }}</td>
+            <td>{{ transaction.isAcepted ? 'Si' : 'No' }}</td>
+        </tr>
+        </ng-template>
+    </p-table>
+</div> 

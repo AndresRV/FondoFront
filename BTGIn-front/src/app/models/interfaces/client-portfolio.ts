@@ -5,6 +5,6 @@ import { Fund } from "./fund";
 export interface ClientPortfolio {
     client: Client;
     transactionHistory: TransactionHistory[];
-    fundsAvailable?: Fund[];
-    registeredFunds?: Fund[];
+    fundsAvailable: Fund[];
+    registeredFunds: Fund[];
 }

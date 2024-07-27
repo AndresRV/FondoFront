@@ -1,0 +1,43 @@
+<div class="flex flex-column md:flex-row column-gap-4 lg:column-gap-8 p-fluid pt-5 md:px-5">
+    <div class="mb-5">
+        <p-floatLabel >
+            <input
+                type="text" 
+                pInputText
+                id="inputClientName"
+                [disabled]="true" 
+                [(ngModel)]="client.name"/>
+            <label for="inputClientName">Nombre</label>
+        </p-floatLabel>
+    </div>
+
+    <div class="mb-5">
+        <p-floatLabel>
+            <p-inputNumber 
+                id="inputClientIdentification"
+                [disabled]="true" 
+                [(ngModel)]="client.identification"/>
+            <label for="inputClientIdentification">Identificación</label>
+        </p-floatLabel>
+    </div>
+
+    <div class="mb-5">
+      <p-floatLabel>
+          <p-inputNumber 
+              id="inputClientCash"
+              [disabled]="true" 
+              [(ngModel)]="client.cash"/>
+          <label for="inputClientCash">Capital disponible</label>
+      </p-floatLabel>
+    </div>        
+
+    <div class="mb-5">
+      <p-floatLabel>
+          <p-inputNumber 
+              id="inputCountRegisteredFunds"
+              [disabled]="true" 
+              [(ngModel)]="client.countRegisteredFunds"/>
+          <label for="inputCountRegisteredFunds">Fondos registrados</label>
+      </p-floatLabel>
+    </div>
+</div>

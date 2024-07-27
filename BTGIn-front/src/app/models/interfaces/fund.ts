@@ -1,6 +1,6 @@
 export interface Fund {
-    name: string;
-    minimumRegistrationAmount: number;
+    name?: string;
+    minimumRegistrationAmount?: number;
     registredAmount?: number;
-    category: string;
+    category?: string;
 }
