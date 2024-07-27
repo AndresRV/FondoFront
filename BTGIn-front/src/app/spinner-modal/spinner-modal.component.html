@@ -1,0 +1,12 @@
+<p-dialog [modal]="true" [(visible)]="showSpinnerModal" [style]="{ width: '25rem' }" [closeOnEscape]="false">
+    <ng-template pTemplate="headless">
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">         
+            <span class="font-bold text-2xl block mb-4 mt-4">Cargando...</span>
+            <p-progressSpinner 
+                styleClass="w-4rem h-4rem" 
+                strokeWidth="8" 
+                fill="var(--surface-ground)" 
+                animationDuration=".5s" />      
+    </div>
+    </ng-template>
+</p-dialog>
