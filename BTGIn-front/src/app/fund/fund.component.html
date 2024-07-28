@@ -9,9 +9,9 @@
                   <div class="flex flex-row md:flex-column justify-content-between align-items-start gap-2">
                     <div>
                       <span class="font-medium text-secondary text-sm">{{ fund.category }}</span>
-                      <div class="text-xl font-semibold text-900">{{ fund.name }}</div>
+                      <div class="text-sm font-semibold">{{ fund.name }}</div>
                       <span>{{ 'Monto mínimo: $' + fund.minimumRegistrationAmount }}</span>
-                      <div *ngIf="isCancelable">{{ 'Monto inscrito: $' + fund.registredAmount }}</div>
+                      <div *ngIf="isCancelable">{{ 'Monto inscrito: $' + fund.inscriptionCapital }}</div>
                     </div>
                   </div>
                   <p-button class="white-space-nowrap" [label]="isCancelable ? 'Retirarse' : 'Inscribirse'" size="small" [severity]="isCancelable ? 'danger' : 'primary'" />

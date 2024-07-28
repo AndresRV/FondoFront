@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -8,14 +7,15 @@ import { SpinnerModalComponent } from './spinner-modal/spinner-modal.component';
 import { ClientInfoComponent } from './client-info/client-info.component';
 import { FundComponent } from './fund/fund.component';
 import { TransactionHistoryComponent } from './transaction-history/transaction-history.component';
-
 import { ClientPortfolio } from './models/interfaces/client-portfolio';
+import { ClientTransactionsService } from './services/client-transactions.service';
+
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,
     ImportPrimeModuleModule,
     SpinnerModalComponent,
     FormsModule,
@@ -24,6 +24,9 @@ import { ClientPortfolio } from './models/interfaces/client-portfolio';
     FundComponent,
     TransactionHistoryComponent
   ],
+  providers: [
+    ConfirmationService
+  ],  
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -35,66 +38,44 @@ export class AppComponent {
     fundsAvailable: [],
     registeredFunds: []
   };
+  showSpinnerModal: boolean = false;
+
+  constructor(
+    private confirmationService: ConfirmationService,
+    private clientTransactionsService: ClientTransactionsService) { }
 
   ngOnInit(): void {
     this.getClientPortfolio();
   }
 
-  getClientPortfolio(): void {
-    this.clientPortfolio = {
-      client: {
-          name: 'John Doe',
-          identification: 123456,
-          cash: 1000.50,
-          countRegisteredFunds: 5
-      },
-      transactionHistory: [
-        {
-          type: 'ingreso',
-          amount: 123,
-          date: new Date(),
-          isAcepted: true
-        },
-        {
-          type: 'RETIRO',
-          amount: 12354,
-          date: new Date(),
-          isAcepted: false
-        }        
-      ],
-      fundsAvailable:[
-        {
-          name: 'disponible',
-          minimumRegistrationAmount: 123,
-          category: 'fun'
-        },
-        {
-          name: 'disponible2',
-          minimumRegistrationAmount: 12322,
-          category: 'fun3'
-        },
-        {
-          name: 'disponible3',
-          minimumRegistrationAmount: 12321,
-          category: 'fun1'
-        }
-      ],
-      registeredFunds: [
-        {
-          name: 'registrado',
-          minimumRegistrationAmount: 123,
-          registredAmount: 456,
-          category: 'fui'
-        }
-      ]
-    }
-
-    /*this.changeStateSpinnerModal(true);
-    
-    this.eventService.getEventsInfo()
-    .subscribe({
-      next: events => this.setEvents(events),
-      error: () => this.errorEvents()
-    });*/
+  changeStateSpinnerModal(state: boolean): void {
+    this.showSpinnerModal = state;
   }
+
+  getClientPortfolio(): void {
+    this.changeStateSpinnerModal(true);
+    
+    this.clientTransactionsService.getTransactionsHistory(123)
+    .subscribe({
+      next: clientPortfolio => this.setClientPortfolio(clientPortfolio),
+      error: () => this.errorEvents()
+    });    
+  }
+
+  private setClientPortfolio(clientPortfolio: ClientPortfolio): void {
+    this.clientPortfolio = clientPortfolio;
+    this.changeStateSpinnerModal(false);
+  }
+  
+  private errorEvents(): void {
+    this.changeStateSpinnerModal(false);
+    this.confirmationService.confirm({
+      key: 'textDialog',
+      message: 'Ha ocurrido un error, vuelve a intentarlo en unos segundos',
+      header: 'Error',
+      icon: 'pi pi-times-circle',
+      acceptLabel: 'Entendido',
+      rejectVisible: false
+    });
+  }  
 }

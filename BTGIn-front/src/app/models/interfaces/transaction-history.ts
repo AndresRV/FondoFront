@@ -3,4 +3,5 @@ export interface TransactionHistory {
     amount?: number;
     date?: Date;
     isAcepted?: boolean;
+    fundName?: string;
 }

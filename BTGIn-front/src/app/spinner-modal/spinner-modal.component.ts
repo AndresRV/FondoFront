@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ImportPrimeModuleModule } from '../import-prime-module/import-prime-module.module'
 
-import { SpinnerModalService } from '../services/spinner-modal.service';
-
 @Component({
   selector: 'app-spinner-modal',
   standalone: true,
@@ -12,12 +10,5 @@ import { SpinnerModalService } from '../services/spinner-modal.service';
 })
 
 export class SpinnerModalComponent {
-  showSpinnerModal: boolean = false;
-
-  constructor(private spinnerModalService: SpinnerModalService) { }
-
-  ngOnInit() {
-    this.spinnerModalService.currentState
-      .subscribe(state => this.showSpinnerModal = state);
-  }
+  @Input() showSpinnerModal: boolean = false;
 }

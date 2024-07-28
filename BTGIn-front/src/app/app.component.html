@@ -7,22 +7,50 @@
     <app-client-info [client]="clientPortfolio.client"></app-client-info>
 
     <div class="grid">
-      <div class="col-12 md:col-4">
+      <div class="col-12 md:col-6 lg:col-4">
         <div class="box">Fondos disponibles</div>
         <app-fund [funds]="clientPortfolio.fundsAvailable"></app-fund>
       </div>
       
-      <div class="col-12 md:col-4">
+      <div class="col-12 md:col-6 lg:col-4">
         <div class="box">Fondos inscritos</div>
         <app-fund [funds]="clientPortfolio.registeredFunds" [isCancelable]="true"></app-fund>
       </div>
       
-      <div class="col-12 md:col-4">
-        <div class="box">Movimientos recientes</div>
+      <div class="col-12 lg:col-4">
+        <div class="box">Transacciones recientes</div>
         <app-transaction-history [transactionHistory]="clientPortfolio.transactionHistory"></app-transaction-history>
       </div>
     </div>
      
-    <app-spinner-modal></app-spinner-modal>
+    <app-spinner-modal [showSpinnerModal]="showSpinnerModal"></app-spinner-modal>
   </section>
+  <p-confirmDialog #cdtext [closeOnEscape]="false" key="textDialog">
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem">
+                <i [ngClass]="message.icon" class="text-5xl"></i>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">
+                {{ message.header }}
+            </span>
+            <p class="mb-0">{{ message.message }}</p>
+            <div class="flex align-items-center gap-2 mt-4">
+                <button 
+                    pButton 
+                    label="Cancelar"
+                    (click)="cdtext.reject()" 
+                    class="p-button-outlined w-10rem"
+                    *ngIf="message.rejectVisible">
+                </button>                        
+                <button 
+                    pButton 
+                    label={{message.acceptLabel}}
+                    (click)="cdtext.accept()" 
+                    class="w-10rem">
+                </button>
+            </div>
+        </div>
+    </ng-template>
+  </p-confirmDialog>  
 </main>
