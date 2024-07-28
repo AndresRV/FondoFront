@@ -14,7 +14,7 @@
       
       <div class="col-12 md:col-6 lg:col-4">
         <div class="box">Fondos inscritos</div>
-        <app-fund [funds]="clientPortfolio.registeredFunds" [isCancelable]="true"></app-fund>
+        <app-fund [funds]="clientPortfolio.registeredFunds" [isCancelable]="true" (disenrollmentFundEmit)="disenrollmentFund($event)"></app-fund>
       </div>
       
       <div class="col-12 lg:col-4">

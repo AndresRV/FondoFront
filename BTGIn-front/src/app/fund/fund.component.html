@@ -14,7 +14,8 @@
                       <div *ngIf="isCancelable">{{ 'Monto inscrito: $' + fund.inscriptionCapital }}</div>
                     </div>
                   </div>
-                  <p-button class="white-space-nowrap" [label]="isCancelable ? 'Retirarse' : 'Inscribirse'" size="small" [severity]="isCancelable ? 'danger' : 'primary'" />
+                  <p-button class="white-space-nowrap" label="Inscribirse" size="small" severity="primary" *ngIf="!isCancelable" />
+                  <p-button class="white-space-nowrap" label="Retirarse" size="small" severity="danger" *ngIf="isCancelable" (click)="disenrollmentFund(fund.name)"/>
               </div>
             </div>
           </div>
