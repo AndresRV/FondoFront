@@ -3,6 +3,7 @@ import { ImportPrimeModuleModule } from '../import-prime-module/import-prime-mod
 import { FormsModule } from '@angular/forms';
 
 import { Fund } from '../models/interfaces/fund';
+import { FundAction } from '../models/interfaces/fund-action';
 
 @Component({
   selector: 'app-fund',
@@ -16,11 +17,31 @@ import { Fund } from '../models/interfaces/fund';
 })
 
 export class FundComponent {
+  clientName: string = "uno";
+  clientIdentification: number = 123;
+
   @Input() funds: Fund[] = [];
   @Input() isCancelable: boolean = false;
-  @Output() disenrollmentFundEmit: EventEmitter<string> = new EventEmitter<string>();
+  @Output() disenrollmentFundEmit: EventEmitter<FundAction> = new EventEmitter<FundAction>();
+  @Output() inscriptionFundEmit: EventEmitter<FundAction> = new EventEmitter<FundAction>();
 
-  disenrollmentFund(fundName: string | undefined): void {
-    this.disenrollmentFundEmit.emit(fundName);
+  disenrollmentFund(fundNameEmit: string | undefined): void {
+    let fundAction: FundAction = {
+      clientIdentification: this.clientIdentification,
+      fundName: fundNameEmit
+    };
+
+    this.disenrollmentFundEmit.emit(fundAction);
   }  
+
+  inscriptionFund(fundNameEmit: string | undefined): void {
+    let fundAction: FundAction = {
+      clientName: this.clientName,
+      clientIdentification: this.clientIdentification,
+      fundName: fundNameEmit,
+      inscriptionCapital: 100000
+    };
+
+    this.inscriptionFundEmit.emit(fundAction);
+  }   
 }

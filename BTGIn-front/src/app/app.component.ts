@@ -65,6 +65,26 @@ export class AppComponent {
     });    
   }
 
+  disenrollmentFund(fundAction: FundAction): void {
+    this.changeStateSpinnerModal(true);
+
+    this.clientTransactionsService.fundDisenrollment(fundAction)
+    .subscribe({
+      next: () => this.successFundAction(),
+      error: error => this.errorFundAction(error.message)
+    });
+  }
+  
+  inscriptionFund(fundAction: FundAction): void {
+    this.changeStateSpinnerModal(true);
+
+    this.clientTransactionsService.fundInscription(fundAction)
+    .subscribe({
+      next: () => this.successFundAction(),
+      error: error => this.errorFundAction(error.message)
+    });
+  }  
+
   private setClientPortfolio(clientPortfolio: ClientPortfolio): void {
     this.clientPortfolio = clientPortfolio;
     this.changeStateSpinnerModal(false);
@@ -81,27 +101,13 @@ export class AppComponent {
       rejectVisible: false
     });
   }
-  
-  disenrollmentFund(fundNameEmit: string): void {
-    this.changeStateSpinnerModal(true);
-    let fundAction: FundAction = {
-      clientIdentification: this.clientIdentification,
-      fundName: fundNameEmit
-    };
 
-    this.clientTransactionsService.fundDisenrollment(fundAction)
-    .subscribe({
-      next: () => this.successFundDisenrollment(),
-      error: error => this.errorFundDisenrollment(error.message)
-    });
-  }
-
-  private successFundDisenrollment() : void {
+  private successFundAction() : void {
     this.changeStateSpinnerModal(false);
     this.getClientPortfolio();
   }
 
-  private errorFundDisenrollment(error: string): void {
+  private errorFundAction(error: string): void {
     this.changeStateSpinnerModal(false);
     this.confirmationService.confirm({
       key: 'textDialog',
@@ -109,7 +115,10 @@ export class AppComponent {
       header: 'Error',
       icon: 'pi pi-times-circle',
       acceptLabel: 'Entendido',
-      rejectVisible: false
+      rejectVisible: false,
+      accept: () => {
+        this.getClientPortfolio();
+      }
     });
   }  
 }

@@ -9,7 +9,7 @@
     <div class="grid">
       <div class="col-12 md:col-6 lg:col-4">
         <div class="box">Fondos disponibles</div>
-        <app-fund [funds]="clientPortfolio.fundsAvailable"></app-fund>
+        <app-fund [funds]="clientPortfolio.fundsAvailable" (inscriptionFundEmit)="inscriptionFund($event)"></app-fund>
       </div>
       
       <div class="col-12 md:col-6 lg:col-4">

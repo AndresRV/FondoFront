@@ -32,6 +32,13 @@ export class ClientTransactionsService {
       );
   }
 
+  fundInscription(fundAction: FundAction): Observable<HttpResponse<void>> {
+    return this.http.post<HttpResponse<void>>(`${this.url}/fund`, fundAction)
+      .pipe(
+        catchError(this.handleErrorInscription)
+      );
+  }
+
   private handleErrorDisenrollment(error: HttpErrorResponse) {
     if (error.status === 404) {
       return throwError(() => new Error(error.error.message));
@@ -39,4 +46,12 @@ export class ClientTransactionsService {
 
     return throwError(() => new Error('Ha ocurrido un error, vuelve a intentarlo'));
   }
+
+  private handleErrorInscription(error: HttpErrorResponse) {
+    if (error.status === 409 || error.status === 400) {
+      return throwError(() => new Error(error.error.message));
+    }
+
+    return throwError(() => new Error('Ha ocurrido un error, vuelve a intentarlo'));
+  }  
 }

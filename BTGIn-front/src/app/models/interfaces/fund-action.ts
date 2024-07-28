@@ -1,6 +1,6 @@
 export interface FundAction {
     clientName?: string,
     clientIdentification: number,
-    fundName: string,
+    fundName: string | undefined,
     inscriptionCapital?: number
 }
