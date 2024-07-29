@@ -20,6 +20,11 @@ export class FundComponent {
   clientName: string = "uno";
   clientIdentification: number = 123;
 
+  fundNameForInscription?: string;
+  inscriptionCapital?: number;
+  showModalInscriptionCapital: boolean = false;
+  errorInscriptionCapital: boolean = false;
+
   @Input() funds: Fund[] = [];
   @Input() isCancelable: boolean = false;
   @Output() disenrollmentFundEmit: EventEmitter<FundAction> = new EventEmitter<FundAction>();
@@ -35,13 +40,24 @@ export class FundComponent {
   }  
 
   inscriptionFund(fundNameEmit: string | undefined): void {
-    let fundAction: FundAction = {
-      clientName: this.clientName,
-      clientIdentification: this.clientIdentification,
-      fundName: fundNameEmit,
-      inscriptionCapital: 100000
-    };
+    this.fundNameForInscription = fundNameEmit;
+    this.showModalInscriptionCapital = true;
+  } 
 
-    this.inscriptionFundEmit.emit(fundAction);
-  }   
+  save() {
+    this.errorInscriptionCapital = false;
+
+    if(!this.inscriptionCapital) {
+      this.errorInscriptionCapital = true;
+    } else {
+      let fundAction: FundAction = {
+        clientName: this.clientName,
+        clientIdentification: this.clientIdentification,
+        fundName: this.fundNameForInscription,
+        inscriptionCapital: this.inscriptionCapital
+      };
+      this.showModalInscriptionCapital = false;
+      this.inscriptionFundEmit.emit(fundAction);
+    }
+  }
 }
